@@ -22,6 +22,7 @@ namespace FeladatAPI.Controllers
         public async Task<ActionResult<GetAuthorResponse>> Get(Guid id)
         {
             var author = await context.Authors.FindAsync(id);
+            if (author == null) return NotFound();
             return Ok(mapper.Map<GetAuthorResponse>(author));
         }
 

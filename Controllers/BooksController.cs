@@ -22,6 +22,7 @@ namespace FeladatAPI.Controllers
         public async Task<ActionResult<GetBookResponse>> Get(Guid id)
         {
             var book = await context.Books.FindAsync(id);
+            if (book == null) return NotFound();
             return Ok(mapper.Map<GetBookResponse>(book));
         }
 

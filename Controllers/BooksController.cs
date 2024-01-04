@@ -45,6 +45,9 @@ namespace FeladatAPI.Controllers
         public async Task<ActionResult<GetBookResponse>> Post([FromBody] CreateBookRequest bookDto)
         {
             var book = mapper.Map<Book>(bookDto);
+
+            if (await context.Authors.FindAsync(book.AuthorId) == null) return NotFound();
+
             context.Books.Add(book);
             await context.SaveChangesAsync();
 
